@@ -106,7 +106,57 @@ public class Algorithms {
      * Доп. условие: у алгоритма должна быть линейная сложность, O(n).
      */
     public static List<Integer> mergeSortedLists(List<Integer> a, List<Integer> b) {
-        return null;
+        if (a.isEmpty() && b.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        if (a.isEmpty()) {
+            return b;
+        }
+
+        if (b.isEmpty()) {
+            return a;
+        }
+
+        Iterator<Integer> itA = a.iterator();
+        Iterator<Integer> itB = b.iterator();
+        List<Integer> out = new ArrayList<>(a.size() + b.size());
+
+        int i = itA.next();
+        int j = itB.next();
+
+        while (true) {
+            if (i <= j) {
+                out.add(i);
+
+                if (itA.hasNext()) {
+                    i = itA.next();
+                } else {
+                    out.add(j);
+                    break;
+                }
+            } else {
+                out.add(j);
+
+                if (itB.hasNext()) {
+                    j = itB.next();
+                } else {
+                    out.add(i);
+                    break;
+                }
+            }
+        }
+
+        // Now append all remaining elements (one of the list may still have elements)
+        while (itA.hasNext()) {
+            out.add(itA.next());
+        }
+
+        while (itB.hasNext()) {
+            out.add(itB.next());
+        }
+
+        return out;
     }
 
     /**
