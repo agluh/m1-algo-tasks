@@ -1,6 +1,7 @@
 package practicum;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Algorithms {
 
@@ -8,7 +9,24 @@ public class Algorithms {
      * Отсортируйте список, НЕ используя методы стандартной библиотеки (напр. Collections.sort).
      */
     public static List<Integer> sort(List<Integer> list) {
-        return null;
+        if (list.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        int[] array = list.stream().mapToInt(Integer::intValue).toArray();
+
+        // Insertion sort
+        for (int i = 1; i < array.length; i++) {
+            int tmp = array[i];
+            int j = i;
+            while (j > 0 && array[j - 1] > tmp) {
+                array[j] = array[j - 1];
+                j--;
+            }
+            array[j] = tmp;
+        }
+
+        return Arrays.stream(array).boxed().collect(Collectors.toList());
     }
 
     /**
