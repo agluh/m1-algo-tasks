@@ -38,7 +38,41 @@ public class Algorithms {
      * К списку-результату это не относится.
      */
     public static List<Integer> removeDuplicates(List<Integer> list) {
-        return null;
+        if (list.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Way to easy :)
+        // return list.stream().distinct().collect(Collectors.toList());
+
+        List<Integer> out = new LinkedList<>(list);
+
+        int endOfDuplicatesFreePartIndex = 0;
+
+        while (endOfDuplicatesFreePartIndex < out.size()) {
+            Iterator<Integer> it = out.iterator();
+
+            // Skip all elements on the left because we've already checked them
+            int index = 0;
+            while (index < endOfDuplicatesFreePartIndex) {
+                it.next();
+                index++;
+            }
+
+            int candidateForDeduplication = it.next();
+
+            // Search for the rest of list and remove all duplicates
+            while (it.hasNext()) {
+                int current = it.next();
+                if (current == candidateForDeduplication) {
+                    it.remove();
+                }
+            }
+
+            endOfDuplicatesFreePartIndex++;
+        }
+
+        return out;
     }
 
     /**
