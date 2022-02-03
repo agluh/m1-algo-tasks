@@ -193,7 +193,35 @@ public class Algorithms {
      * [1 2] и [1 1 2] = false, разный набор элементов
      */
     public static boolean isPermutation(int[] a, int[] b) {
-        return false;
+        if (a.length == 0 && b.length == 0 || Arrays.equals(a, b)) {
+            return true;
+        }
+
+        if (a.length != b.length) {
+            return false;
+        }
+
+        Map<Integer, Integer> numberCounts = new HashMap<>();
+        for (int i : a) {
+            numberCounts.merge(i, 1, Integer::sum);
+        }
+
+        for (int i : b) {
+            if (!numberCounts.containsKey(i)) {
+                return false;
+            }
+
+            int count = numberCounts.get(i) - 1;
+
+            if (count == 0) {
+                numberCounts.remove(i);
+            } else {
+                numberCounts.put(i, count);
+            }
+        }
+
+        // If arrays have the same group of numbers we should have empty map.
+        return numberCounts.isEmpty();
     }
 
     /**
