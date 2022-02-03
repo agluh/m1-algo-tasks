@@ -242,6 +242,21 @@ public class Algorithms {
      *   [6 4 2] ]
      */
     public static int[][] rotateRight(int[][] image) {
-        return null;
+        if (image.length == 0) {
+            return new int[][]{};
+        }
+
+        int h = image.length;
+        int w = image[0].length;
+
+        int[][] out = new int[w][h];
+
+        for (int j = 0; j < w; j++) {
+            for (int i = 0; i < h; i++) {
+                out[j][h - i - 1] = image[i][j];
+            }
+        }
+
+        return out;
     }
 }
