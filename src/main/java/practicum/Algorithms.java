@@ -85,7 +85,14 @@ public class Algorithms {
      * Доп. условие: у алгоритма должна быть линейная сложность, O(n)
      */
     public static boolean isPalindrome(List<Integer> list) {
-        return false;
+        for (int i = 0; i < list.size() / 2; i++) {
+            int mirroredIndex = list.size() - i - 1;
+            if (!list.get(i).equals(list.get(mirroredIndex))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
